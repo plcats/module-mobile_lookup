@@ -1,0 +1,44 @@
+{
+    "name": "pbonzini/xataface-mobile-lookup",
+    "description": "Mobile-friendly lookup widget for Xataface with AJAX search and touch-optimized interface",
+    "type": "library",
+    "keywords": [
+        "xataface",
+        "widget",
+        "mobile",
+        "lookup",
+        "select2",
+        "ajax",
+        "responsive",
+        "touch"
+    ],
+    "homepage": "https://github.com/plcats/module-mobile_lookup",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Paolo Bonzini",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/plcats/module-mobile_lookup/issues",
+        "source": "https://github.com/plcats/module-mobile_lookup"
+    },
+    "require": {
+        "php": ">=7.0"
+    },
+    "require-dev": {},
+    "autoload": {
+        "classmap": [
+            "mobile_lookup.php",
+            "widget.php",
+            "QuickForm_mobile_lookup.php"
+        ]
+    },
+    "extra": {
+        "xataface": {
+            "module": true,
+            "version": "1.0.0"
+        }
+    }
+}

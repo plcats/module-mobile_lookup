@@ -1,0 +1,52 @@
+name: Create Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    
+    - name: Get version from tag
+      id: get_version
+      run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+    
+    - name: Create Release Archive
+      run: |
+        # Create a clean copy without git files
+        mkdir -p mobile_lookup-${{ steps.get_version.outputs.VERSION }}
+        rsync -av --exclude='.git*' --exclude='.github' --exclude='docs' . mobile_lookup-${{ steps.get_version.outputs.VERSION }}/
+        
+        # Create zip archive
+        zip -r mobile_lookup-${{ steps.get_version.outputs.VERSION }}.zip mobile_lookup-${{ steps.get_version.outputs.VERSION }}
+        
+        # Create tar.gz archive
+        tar -czf mobile_lookup-${{ steps.get_version.outputs.VERSION }}.tar.gz mobile_lookup-${{ steps.get_version.outputs.VERSION }}
+    
+    - name: Extract Changelog
+      id: changelog
+      run: |
+        # Extract changelog for this version
+        VERSION="${{ steps.get_version.outputs.VERSION }}"
+        sed -n "/## \[$VERSION\]/,/## \[/p" CHANGELOG.md | sed '$d' > release_notes.md
+    
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          mobile_lookup-${{ steps.get_version.outputs.VERSION }}.zip
+          mobile_lookup-${{ steps.get_version.outputs.VERSION }}.tar.gz
+        body_path: release_notes.md
+        draft: false
+        prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

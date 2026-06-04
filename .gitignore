@@ -1,0 +1,61 @@
+# Cache e file temporanei
+*.log
+*.tmp
+*.cache
+.DS_Store
+Thumbs.db
+
+# IDE e Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.sublime-project
+*.sublime-workspace
+.project
+.settings/
+.classpath
+.buildpath
+
+# Template compilati Xataface
+templates_c/
+*.compiled
+
+# Backup
+*.bak
+*.backup
+*~
+
+# OS specific
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# Dependency directories
+node_modules/
+vendor/
+
+# Build directories
+dist/
+build/
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Package manager files (if adding npm/composer later)
+package-lock.json
+composer.lock
+yarn.lock
+pnpm-lock.yaml

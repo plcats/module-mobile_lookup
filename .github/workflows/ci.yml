@@ -1,0 +1,68 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  lint:
+    name: Lint PHP Code
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '7.4'
+        tools: php-cs-fixer, phpstan
+    
+    - name: Check PHP Syntax
+      run: |
+        find . -name "*.php" -print0 | xargs -0 -n1 php -l
+    
+    - name: PHP Code Style Check
+      run: |
+        # Add php-cs-fixer check when ready
+        echo "Code style check placeholder"
+
+  test-compatibility:
+    name: Test PHP Compatibility
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        php-version: ['7.0', '7.1', '7.2', '7.3', '7.4', '8.0', '8.1']
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup PHP ${{ matrix.php-version }}
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php-version }}
+    
+    - name: Check PHP Syntax
+      run: |
+        find . -name "*.php" -print0 | xargs -0 -n1 php -l
+
+  validate:
+    name: Validate Files
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Validate JSON files
+      run: |
+        if [ -f "composer.json" ]; then
+          cat composer.json | jq empty
+        fi
+    
+    - name: Check file permissions
+      run: |
+        # Ensure no executable permissions on source files
+        ! find . -type f \( -name "*.php" -o -name "*.js" -o -name "*.css" \) -executable

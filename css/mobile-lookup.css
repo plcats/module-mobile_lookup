@@ -1,0 +1,487 @@
+/**
+ * Mobile Lookup Widget - CSS
+ * 
+ * Stili ottimizzati per dispositivi mobili e touch screen
+ * 
+ * @author Paolo Bonzini
+ * @version 1.0.0
+ */
+
+/* ============================================
+   Wrapper e container
+   ============================================ */
+
+.xf-mobile-lookup-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+    max-width: 100%;
+    flex-wrap: nowrap;
+    min-width: 0;
+}
+
+/* Fuori grid, su desktop evita il full-width al 100%. */
+@media (min-width: 992px) {
+    .xf-mobile-lookup-wrapper.xf-mobile-lookup-standalone {
+        width: min(100%, 42rem);
+        max-width: 42rem;
+        flex: 0 1 42rem;
+    }
+}
+
+.xf-mobile-lookup {
+    width: 100% !important;
+    max-width: 100%;
+}
+
+.xf-mobile-lookup-wrapper .select2-container {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.xf-mobile-lookup-wrapper > select.xf-mobile-lookup {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.xf-mobile-lookup-actions {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    flex: 0 0 auto;
+}
+
+.xf-mobile-lookup-edit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: #fff;
+    color: #333;
+    text-decoration: none;
+    font-size: 16px;
+    line-height: 1;
+}
+
+.xf-mobile-lookup-new {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: #fff;
+    color: #333;
+    text-decoration: none;
+    font-size: 18px;
+    line-height: 1;
+}
+
+.xf-mobile-lookup-new:hover {
+    border-color: #0056b3;
+    color: #0056b3;
+}
+
+.xf-mobile-lookup-new.is-disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.xf-mobile-lookup-edit:hover {
+    border-color: #0056b3;
+    color: #0056b3;
+}
+
+.xf-mobile-lookup-edit.is-disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* ============================================
+   Modal allscreen
+   ============================================ */
+
+.xf-ml-allscreen {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+}
+
+.xf-ml-allscreen-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+}
+
+.xf-ml-allscreen-panel {
+    position: absolute;
+    inset: 5% 5%;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    max-height: 90vh;
+}
+
+.xf-ml-allscreen-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    border-bottom: 1px solid #e6e6e6;
+    background: #f9f9f9;
+}
+
+.xf-ml-allscreen-title {
+    font-weight: 600;
+    color: #333;
+}
+
+.xf-ml-allscreen-close {
+    border: none;
+    background: transparent;
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+    color: #333;
+}
+
+.xf-ml-allscreen-body {
+    padding: 12px;
+    overflow: hidden;
+    flex: 1 1 auto;
+    height: 100%;
+    min-height: 0;
+}
+
+.xf-ml-allscreen-field {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0;
+}
+
+.xf-ml-allscreen-open {
+    overflow: hidden;
+}
+
+.xf-ml-allscreen .select2-container {
+    width: 100% !important;
+    flex: 0 0 auto;
+    min-height: 0;
+    box-sizing: border-box;
+}
+
+.xf-ml-allscreen .select2-container .select2-selection--single {
+    width: 100% !important;
+    box-sizing: border-box;
+}
+
+.xf-ml-allscreen .select2-dropdown {
+    width: 90% !important;
+    left: 0 !important;
+    top: -28px !important;
+    margin: unset;
+    display: flex;
+    flex-direction: column;
+    height: 100% !important;
+    max-height: 100% !important;
+    overflow: hidden;
+    min-height: 0;
+    box-sizing: border-box;
+}
+
+.xf-ml-allscreen .select2-search--dropdown {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    flex: 0 0 auto;
+    box-sizing: border-box;
+}
+
+.xf-ml-allscreen .select2-results {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.xf-ml-allscreen .select2-results__options {
+    max-height: none !important;
+    height: 100% !important;
+    min-height: 0;
+    overflow-y: scroll !important;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable;
+}
+
+.xf-ml-allscreen .select2-results__option {
+    box-sizing: border-box;
+    width: 100%;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+}
+
+.xf-ml-allscreen .select2-container--open .select2-results__options {
+    max-height: none !important;
+}
+
+/* ============================================
+   Select2 customizations per mobile
+   ============================================ */
+
+/* Container principale */
+.select2-container--default .select2-selection--single {
+    height: 30px !important;
+    padding: 2px 8px;
+    font-size: 16px; /* Previene zoom su iOS */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: 20px;
+    padding-left: 0;
+    padding-right: 36px; /* Spazio per X e freccia */
+    color: #333;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 28px;
+    right: 2px;
+}
+
+/* Input ricerca mobile-optimized */
+.select2-search--dropdown .select2-search__field {
+    padding: 12px 16px;
+    font-size: 16px !important; /* Previene zoom su iOS */
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    min-height: 44px; /* iOS touch target */
+}
+
+/* ============================================
+   Dropdown mobile-friendly
+   ============================================ */
+
+.xf-mobile-lookup-dropdown {
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Risultati dropdown */
+.select2-results__option {
+    padding: 12px 16px !important; /* Touch-friendly */
+    font-size: 16px !important; /* Previene zoom iOS */
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+}
+
+.select2-results__option--highlighted {
+    background-color: #0056b3 !important;
+    color: white !important;
+}
+
+/* Mobile result formatting */
+.mobile-lookup-result {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.mobile-lookup-result .result-image {
+    width: 40px;
+    height: 40px;
+    flex: 0 0 40px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    background: #fafafa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.mobile-lookup-result .result-image img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+}
+
+.mobile-lookup-result .result-content {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.mobile-lookup-result .result-title {
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 4px;
+}
+
+.mobile-lookup-result .result-description {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.3;
+}
+
+/* ============================================
+   Stati speciali
+   ============================================ */
+
+/* Placeholder */
+.select2-container--default .select2-selection--single .select2-selection__placeholder {
+    color: #999;
+}
+
+/* Disabled/Frozen */
+.select2-container--default.select2-container--disabled .select2-selection--single {
+    background-color: #f5f5f5;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* Focus */
+.select2-container--default.select2-container--focus .select2-selection--single,
+.select2-container--default.select2-container--open .select2-selection--single {
+    border-color: #0056b3;
+    box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.1);
+}
+
+/* Clear button */
+.select2-container--default .select2-selection--single .select2-selection__clear {
+    font-size: 20px;
+    margin-right: 20px; /* separa dalla freccia */
+    color: #999;
+    font-weight: normal;
+}
+
+/* ============================================
+   Responsive breakpoints
+   ============================================ */
+
+/* Mobile small (< 375px) */
+@media (max-width: 374px) {
+    .select2-container--default .select2-selection--single {
+        font-size: 14px;
+    }
+    
+    .select2-results__option {
+        font-size: 14px !important;
+        padding: 10px 12px !important;
+    }
+}
+
+/* Tablet e desktop */
+@media (min-width: 768px) {
+    .xf-mobile-lookup-wrapper {
+        max-width: 100%;
+    }
+    
+    /* Dropdown più compatto su desktop */
+    .select2-results__option {
+        padding: 6px 10px !important;
+        min-height: 30px;
+        font-size: 14px !important;
+    }
+    
+    .select2-container--default .select2-selection--single {
+        height: 30px !important;
+        padding: 2px 8px;
+    }
+    
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+        line-height: 20px;
+        padding-right: 36px;
+    }
+    
+    .select2-container--default .select2-selection--single .select2-selection__arrow {
+        height: 28px;
+        right: 2px;
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__clear {
+        font-size: 20px;
+        margin-right: 20px;
+    }
+}
+
+/* ============================================
+   Loading states
+   ============================================ */
+
+.select2-results__option.loading-results {
+    text-align: center;
+    padding: 16px;
+    color: #999;
+}
+
+/* Spinner loading */
+.select2-results__option.loading-results:after {
+    content: "";
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #0056b3;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-left: 8px;
+    vertical-align: middle;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* ============================================
+   Forza tema chiaro (no dark mode)
+   ============================================ */
+
+/* Forza sempre sfondo bianco per il widget */
+.select2-container--default .select2-selection--single {
+    background-color: #fff !important;
+    border-color: #ccc !important;
+    color: #333 !important;
+}
+
+.select2-dropdown {
+    background-color: #fff !important;
+    border-color: #ccc !important;
+}
+
+.select2-search--dropdown .select2-search__field {
+    background-color: #fff !important;
+    border-color: #ddd !important;
+    color: #333 !important;
+}
+
+.select2-results__option {
+    background-color: #fff !important;
+    color: #333 !important;
+}
+
+.select2-results__option--highlighted {
+    background-color: #0056b3 !important;
+    color: white !important;
+}
+
+.mobile-lookup-result .result-title {
+    color: #333 !important;
+}
+
+.mobile-lookup-result .result-description {
+    color: #666 !important;
+}
