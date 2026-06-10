@@ -68,7 +68,7 @@ Add a new section at the top:
 ### Fixed
 - Bug fix description
 
-[X.Y.Z]: https://github.com/yourusername/xataface-mobile-lookup/releases/tag/vX.Y.Z
+[X.Y.Z]: https://github.com/plcats/module-mobile_lookup/releases/tag/vX.Y.Z
 ```
 
 ### 3. Commit Changes
@@ -248,7 +248,7 @@ After release, monitor:
 - Fixed XSS vulnerability in widget rendering
 - Updated dependency to patch security issue
 
-[X.Y.Z]: https://github.com/yourusername/xataface-mobile-lookup/releases/tag/vX.Y.Z
+[X.Y.Z]: https://github.com/plcats/module-mobile_lookup/releases/tag/vX.Y.Z
 ```
 
 ## Quick Release Commands

@@ -5,7 +5,7 @@
  * con ricerca AJAX e interfaccia touch-optimized
  * 
  * @author Paolo Bonzini
- * @version 1.0.0
+ * @version 1.1.0
  */
 
 (function () {
@@ -41,6 +41,41 @@
             return JSON.parse(raw);
         } catch (e) {
             return fallback || {};
+        }
+    }
+
+    /**
+     * Porta il focus sulla casella di ricerca Select2 appena aperta.
+     */
+    function focusLookupSearchField($dropdown) {
+        var $searchField = null;
+
+        if ($dropdown && $dropdown.length) {
+            $searchField = $dropdown.find('.select2-search__field').first();
+        }
+        if (!$searchField || !$searchField.length) {
+            $searchField = $('.select2-container--open .select2-search__field').last();
+        }
+        if (!$searchField || !$searchField.length) {
+            return;
+        }
+
+        var searchEl = $searchField.get(0);
+        if (!searchEl) {
+            return;
+        }
+
+        try {
+            searchEl.focus({ preventScroll: true });
+        } catch (e) {
+            searchEl.focus();
+        }
+
+        if (searchEl.setSelectionRange) {
+            var len = searchEl.value ? searchEl.value.length : 0;
+            try {
+                searchEl.setSelectionRange(len, len);
+            } catch (err) { }
         }
     }
 
@@ -457,6 +492,13 @@
                 if (maxWidthValue) {
                     $wrapper.css('max-width', String(maxWidthValue));
                 }
+                var minWidthValue = options.minWidth;
+                if ((!minWidthValue || minWidthValue === '') && options.atts && options.atts.minWidth) {
+                    minWidthValue = options.atts.minWidth;
+                }
+                if (minWidthValue) {
+                    $wrapper.css('min-width', String(minWidthValue));
+                }
                 function buildRecordId(value) {
                     if (!options.table || !value) return null;
                     var keycol = options.keycol || 'id';
@@ -688,6 +730,8 @@
                             'font-size': '16px' // Previene zoom su iOS
                         });
 
+                        focusLookupSearchField($dropdown);
+
                         if (useAllScreen && $allScreenOverlay) {
                             requestAnimationFrame(function () {
                                 var $panel = $allScreenOverlay.find('.xf-ml-allscreen-panel');
@@ -718,6 +762,8 @@
                                     $dropdown.find('.select2-results').css('height', resultsH + 'px');
                                     $dropdown.find('.select2-results__options').css('height', resultsH + 'px');
                                 }
+
+                                focusLookupSearchField($dropdown);
                             });
                         }
                     }, 0);

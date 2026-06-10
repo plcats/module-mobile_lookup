@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2026-06-10
+
+### Added
+- Auto-focus sulla casella di ricerca all'apertura del dropdown (standard e modalità `allscreen`)
+- Ricerca multi-parola con logica **AND** tra token (allineata a `Dataface_QueryBuilder` / lookup standard)
+  - Esempio: `tubol 120` trova "tubolare 120 x 40"
+- Documentazione migrazione `lookup` → `mobile_lookup` (esempi BBG Point)
+
+### Changed
+- `actions/mobile_lookup_search.php`: ogni parola della query deve matchare almeno un `searchField` (OR tra campi, AND tra parole)
+- `js/mobile-lookup.js`: helper `focusLookupSearchField()` con `preventScroll` per mobile
+
+### Fixed
+- Comportamento ricerca meno permissivo della lookup nativa quando l'utente digita più parole separate da spazio
+- Focus ricerca in modalità fullscreen dopo mount del pannello (`requestAnimationFrame`)
+- Testo selezionato troncato troppo presto (`COMP...` con spazio vuoto): clear Select2 (×) non usa più `float:right` nel layout
+
+[1.1.0]: https://github.com/plcats/module-mobile_lookup/releases/tag/v1.1.0
+
 ## [1.0.0] - 2026-02-05
 
 ### Added

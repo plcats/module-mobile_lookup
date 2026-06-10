@@ -13,7 +13,8 @@
 ## 📱 Caratteristiche
 
 - ✅ **Touch-optimized**: Target touch 44px (iOS standard)
-- ✅ **Ricerca AJAX**: Caricamento dinamico risultati
+- ✅ **Ricerca AJAX**: Caricamento dinamico risultati con ricerca multi-parola (AND)
+- ✅ **Focus automatico**: Casella ricerca attiva all'apertura elenco
 - ✅ **Mobile-first**: Font-size 16px per evitare zoom iOS
 - ✅ **Responsive**: Adattamento automatico mobile/tablet/desktop
 - ✅ **Select2**: Libreria moderna e performante
@@ -87,7 +88,25 @@ I filtri con `$nomeCampo` vengono risolti dinamicamente dal valore di altri camp
 | `widget:placeholder` | No | `"Seleziona..."` | Placeholder input |
 | `widget:minimumInputLength` | No | `0` | Min caratteri per ricerca |
 | `widget:preloadOptions` | No | `selected` | Preload iniziale: `selected` \| `first100` \| `none` |
+| `widget:allscreen` | No | `0` | Modalità fullscreen su mobile (`1` = overlay a schermo intero) |
 | `widget:filters[campo]` | No | - | Filtri fissi o dinamici ($) |
+
+## 🔍 Comportamento ricerca
+
+La ricerca AJAX replica la logica della lookup standard Xataface (`RecordBrowser` / `QueryBuilder`):
+
+- La stringa digitata viene **spezzata in parole** (separatori: spazi)
+- Ogni parola deve comparire in **almeno un campo** tra `widget:searchFields` (OR tra campi)
+- Tutte le parole devono essere soddisfatte (AND tra parole)
+
+Esempio con `widget:searchFields=cod,desc_breve,descrizione,codFornitore`:
+
+| Query utente | Record `tubolare 120 x 40` |
+|--------------|----------------------------|
+| `tubol 120` | ✅ Trovato (`tubol` in descrizione, `120` in descrizione) |
+| `tubol 120` (v1.0.0) | ❌ Cercava `%tubol 120%` come stringa unica |
+
+Consiglio: elencare tutti i campi utili in `widget:searchFields`, non solo `labelcol`.
 
 ## 🎨 Personalizzazione CSS
 
@@ -112,10 +131,11 @@ Puoi sovrascrivere gli stili in `css/custom.css`:
 - Controlla console browser per errori JS
 - Verifica permessi `view` sulla tabella lookup
 
-### Ricerca non funziona
-- Controlla `actions/mobile_lookup_search.php` sia eseguibile
-- Verifica log PHP per errori database
-- Testa URL AJAX manualmente: `?-action=mobile_lookup_search&-table=Nome`
+### Ricerca non funziona o trova meno risultati della lookup standard
+- Verifica `widget:searchFields` includa i campi giusti (codice, descrizione, ecc.)
+- Testa URL AJAX: `?-action=mobile_lookup_search&-table=NomeTabella&-search=tubol%20120&-searchFields=descrizione,cod`
+- Controlla log PHP e permessi `view` sulla tabella target
+- Dalla v1.1.0 la ricerca multi-parola usa AND tra token (come lookup nativa)
 
 ### Su mobile non è touch-friendly
 - Pulisci cache browser
@@ -128,7 +148,8 @@ Puoi sovrascrivere gli stili in `css/custom.css`:
 |----------------|-----------------|---------------|
 | Mobile-friendly | ❌ No | ✅ Sì |
 | Touch targets | Piccoli | 44px iOS standard |
-| Ricerca | Client-side | AJAX server-side |
+| Ricerca | Client-side (multi-parola) | AJAX server-side (multi-parola) |
+| Focus ricerca all'apertura | Manuale | Automatico |
 | Paginazione | No | Sì (30 record/pagina) |
 | Zoom iOS | Sì (font <16px) | No (font 16px) |
 | Responsive | Limitato | Full responsive |

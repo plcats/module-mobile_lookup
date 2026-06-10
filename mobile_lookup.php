@@ -6,7 +6,7 @@
  * for touch-optimized record selection with search capabilities.
  * 
  * @author Paolo Bonzini
- * @version 1.0.0
+ * @version 1.1.0
  * @created February 5, 2026
  * 
  * Usage in fields.ini:

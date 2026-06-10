@@ -110,6 +110,29 @@ In your table's `fields.ini` file, add:
 | `widget:canNew` | bool | auto | Show new button (auto-detected from permissions) |
 | `widget:atts:maxWidth` | string | - | Max width CSS value (e.g., `500px`, `50%`) |
 
+## Search Behavior (v1.1.0+)
+
+The AJAX search splits the user input into words and requires **every word** to match at least one field listed in `widget:searchFields`.
+
+This matches the native Xataface lookup (`RecordBrowser` / `QueryBuilder`) behavior.
+
+Example:
+
+```ini
+[fkArticolo]
+    widget:type=mobile_lookup
+    widget:table=BBGListino_Valido
+    widget:keycol=cod
+    widget:labelcol=xxTitolo
+    widget:searchFields=cod,desc_breve,descrizione,codFornitore
+```
+
+Query `tubol 120` matches a record titled `tubolare 120 x 40`.
+
+## UX: Auto-focus
+
+From v1.1.0, when the dropdown opens the search input receives focus automatically so the user can type immediately (including in `widget:allscreen=1` mode).
+
 ## Performance Optimization
 
 ### For Large Datasets

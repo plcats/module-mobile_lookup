@@ -212,6 +212,39 @@ Then in OrderItems fields.ini:
     widget:placeholder="Select final category..."
 ```
 
+## Ricerca multi-parola (v1.1.0+)
+
+```ini
+[fkArticolo]
+    widget:type=mobile_lookup
+    widget:table=BBGListino_Valido
+    widget:keycol=cod
+    widget:labelcol=xxTitolo
+    widget:searchFields=cod,desc_breve,descrizione,codFornitore
+    widget:preloadOptions=none
+    widget:placeholder="Cerca articolo..."
+```
+
+- `tubol` → match parziale su descrizione ("tubolare...")
+- `tubol 120` → entrambe le parole devono matchare (AND), come lookup standard Xataface
+
+## Variante con filtro articolo + fullscreen
+
+```ini
+[fkGruppoVarianti]
+    widget:type=mobile_lookup
+    widget:allscreen=1
+    widget:table=BBGListino_Varianti_Gruppi
+    widget:keycol=idGruppo
+    widget:labelcol=titolo
+    widget:searchFields=titolo
+    widget:filters:fkArticolo="$fkArticolo"
+    widget:preloadOptions=none
+    widget:placeholder="Cerca variante..."
+```
+
+All'apertura: overlay fullscreen + focus automatico sulla ricerca.
+
 ## Performance Optimization
 
 ### Large Dataset (1M+ records)

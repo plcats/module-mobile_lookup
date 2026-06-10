@@ -4,7 +4,7 @@
  * Stili ottimizzati per dispositivi mobili e touch screen
  * 
  * @author Paolo Bonzini
- * @version 1.0.0
+ * @version 1.1.0
  */
 
 /* ============================================
@@ -183,6 +183,39 @@
 .xf-ml-allscreen .select2-container .select2-selection--single {
     width: 100% !important;
     box-sizing: border-box;
+    position: relative;
+    display: flex !important;
+    align-items: center;
+}
+
+.xf-ml-allscreen .select2-container--default .select2-selection--single .select2-selection__rendered {
+    flex: 1 1 auto;
+    min-width: 0;
+    width: auto !important;
+    max-width: 100%;
+    padding-right: 44px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+    box-sizing: border-box;
+}
+
+.xf-ml-allscreen .select2-container--default .select2-selection--single .select2-selection__clear {
+    float: none !important;
+    position: absolute;
+    right: 22px;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-right: 0 !important;
+    z-index: 1;
+}
+
+.xf-ml-allscreen .select2-container--default .select2-selection--single .select2-selection__arrow {
+    position: absolute;
+    right: 2px;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .xf-ml-allscreen .select2-dropdown {
@@ -239,25 +272,53 @@
    ============================================ */
 
 /* Container principale */
-.select2-container--default .select2-selection--single {
+.xf-mobile-lookup-wrapper .select2-container--default .select2-selection--single {
     height: 30px !important;
     padding: 2px 8px;
     font-size: 16px; /* Previene zoom su iOS */
     border: 1px solid #ccc;
     border-radius: 4px;
     background-color: #fff;
+    position: relative;
+    display: flex !important;
+    align-items: center;
 }
 
-.select2-container--default .select2-selection--single .select2-selection__rendered {
+/* Evita troncamento prematuro: il clear (×) di Select2 usa float:right nel
+   markup standard e lascia buchi vuoti prima dell'ellipsis. */
+.xf-mobile-lookup-wrapper .select2-container--default .select2-selection--single .select2-selection__rendered {
+    flex: 1 1 auto;
+    min-width: 0;
+    width: auto !important;
+    max-width: 100%;
     line-height: 20px;
     padding-left: 0;
-    padding-right: 36px; /* Spazio per X e freccia */
+    padding-right: 44px; /* spazio per × + freccia */
     color: #333;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+    box-sizing: border-box;
 }
 
-.select2-container--default .select2-selection--single .select2-selection__arrow {
+.xf-mobile-lookup-wrapper .select2-container--default .select2-selection--single .select2-selection__clear {
+    float: none !important;
+    position: absolute;
+    right: 22px;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-right: 0 !important;
+    z-index: 1;
+}
+
+.xf-mobile-lookup-wrapper .select2-container--default .select2-selection--single .select2-selection__arrow {
     height: 28px;
     right: 2px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    flex: 0 0 auto;
 }
 
 /* Input ricerca mobile-optimized */
@@ -360,9 +421,8 @@
 }
 
 /* Clear button */
-.select2-container--default .select2-selection--single .select2-selection__clear {
+.xf-mobile-lookup-wrapper .select2-container--default .select2-selection--single .select2-selection__clear {
     font-size: 20px;
-    margin-right: 20px; /* separa dalla freccia */
     color: #999;
     font-weight: normal;
 }
@@ -396,24 +456,24 @@
         font-size: 14px !important;
     }
     
-    .select2-container--default .select2-selection--single {
+    .xf-mobile-lookup-wrapper .select2-container--default .select2-selection--single {
         height: 30px !important;
         padding: 2px 8px;
     }
     
-    .select2-container--default .select2-selection--single .select2-selection__rendered {
+    .xf-mobile-lookup-wrapper .select2-container--default .select2-selection--single .select2-selection__rendered {
         line-height: 20px;
-        padding-right: 36px;
+        padding-right: 44px;
     }
     
-    .select2-container--default .select2-selection--single .select2-selection__arrow {
+    .xf-mobile-lookup-wrapper .select2-container--default .select2-selection--single .select2-selection__arrow {
         height: 28px;
         right: 2px;
     }
 
-    .select2-container--default .select2-selection--single .select2-selection__clear {
+    .xf-mobile-lookup-wrapper .select2-container--default .select2-selection--single .select2-selection__clear {
         font-size: 20px;
-        margin-right: 20px;
+        right: 22px;
     }
 }
 

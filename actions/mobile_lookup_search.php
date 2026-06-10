@@ -108,18 +108,34 @@ class actions_mobile_lookup_search
         // Condizioni WHERE
         $conditions = array();
 
-        // Ricerca testuale
+        // Ricerca testuale multi-parola (AND tra token, OR tra campi)
+        // Allineata a Dataface_QueryBuilder / RecordBrowser lookup standard.
         if (!empty($searchTerm)) {
             $searchFieldsArr = array_map('trim', explode(',', $searchFields));
-            $searchConditions = array();
-            $escapedTerm = mysqli_real_escape_string($link, $searchTerm);
+            $safeSearchFields = array();
             foreach ($searchFieldsArr as $sf) {
                 if (preg_match('/^[a-zA-Z0-9_]+$/', $sf)) {
-                    $searchConditions[] = "`$sf` LIKE '%$escapedTerm%'";
+                    $safeSearchFields[] = $sf;
                 }
             }
-            if (!empty($searchConditions)) {
-                $conditions[] = '(' . implode(' OR ', $searchConditions) . ')';
+
+            if (!empty($safeSearchFields)) {
+                $words = preg_split('/\s+/', trim($searchTerm));
+                $wordConditions = array();
+                foreach ($words as $word) {
+                    if ($word === '') {
+                        continue;
+                    }
+                    $escapedWord = mysqli_real_escape_string($link, $word);
+                    $fieldConditions = array();
+                    foreach ($safeSearchFields as $sf) {
+                        $fieldConditions[] = "`$sf` LIKE '%$escapedWord%'";
+                    }
+                    $wordConditions[] = '(' . implode(' OR ', $fieldConditions) . ')';
+                }
+                if (!empty($wordConditions)) {
+                    $conditions[] = '(' . implode(' AND ', $wordConditions) . ')';
+                }
             }
         }
 

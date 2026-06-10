@@ -34,6 +34,37 @@ class Dataface_FormTool_mobile_lookup
     }
 
     /**
+     * Legge il valore corrente rispettando eventuali delegate __pullValue
+     * (necessario in grid dove Xataface passa i val del record padre al figlio).
+     */
+    private function resolveCurrentValue(&$record, $fieldBase)
+    {
+        if ($fieldBase === '') {
+            return '';
+        }
+
+        $delegate = $record->_table->getDelegate();
+        if ($delegate !== null && method_exists($delegate, $fieldBase . '__pullValue')) {
+            $method = $fieldBase . '__pullValue';
+            $pullVal = $delegate->$method($record, null);
+            if ($pullVal !== null && $pullVal !== false) {
+                return is_scalar($pullVal) ? (string) $pullVal : '';
+            }
+            return '';
+        }
+
+        $currentValue = '';
+        $rawCurrentValue = $record->val($fieldBase);
+        if ($rawCurrentValue !== null) {
+            $currentValue = is_scalar($rawCurrentValue) ? (string) $rawCurrentValue : '';
+        }
+        if ($currentValue === '') {
+            $currentValue = $record->strval($fieldBase);
+        }
+        return $currentValue;
+    }
+
+    /**
      * Costruisce il widget mobile_lookup
      * 
      * @param Dataface_Record $record Record corrente
@@ -79,16 +110,7 @@ class Dataface_FormTool_mobile_lookup
 
         $currentFieldName = isset($field['name']) ? $field['name'] : $formFieldName;
         $currentFieldBase = $this->resolveBaseFieldName($currentFieldName);
-        $currentValue = '';
-        if ($currentFieldBase !== '') {
-            $rawCurrentValue = $record->val($currentFieldBase);
-            if ($rawCurrentValue !== null) {
-                $currentValue = is_scalar($rawCurrentValue) ? (string) $rawCurrentValue : '';
-            }
-            if ($currentValue === '') {
-                $currentValue = $record->strval($currentFieldBase);
-            }
-        }
+        $currentValue = $this->resolveCurrentValue($record, $currentFieldBase);
 
         if ($hasLookupTable) {
             // Se non c'è vocabulary, costruisci opzioni dalla tabella target
@@ -302,16 +324,7 @@ class Dataface_FormTool_mobile_lookup
     {
         $fieldName = isset($field['name']) ? $field['name'] : $element->getName();
         $fieldBase = $this->resolveBaseFieldName($fieldName);
-        $val = '';
-        if ($fieldBase !== '') {
-            $rawVal = $record->val($fieldBase);
-            if ($rawVal !== null) {
-                $val = is_scalar($rawVal) ? (string) $rawVal : '';
-            }
-            if ($val === '') {
-                $val = $record->strval($fieldBase);
-            }
-        }
+        $val = $this->resolveCurrentValue($record, $fieldBase);
         $element->setValue($val);
         return $val;
     }

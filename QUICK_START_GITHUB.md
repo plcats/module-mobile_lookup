@@ -9,14 +9,14 @@ Guida rapida in 10 minuti per pubblicare il modulo Mobile Lookup su GitHub.
 **Windows:**
 ```powershell
 cd TEST\INT\BBGPOINT\modules\mobile_lookup
-.\scripts\update-urls.ps1 -Username "TUO_USERNAME"
+.\scripts\update-urls.ps1 -Username "plcats"
 ```
 
 **Linux/Mac:**
 ```bash
 cd TEST/INT/BBGPOINT/modules/mobile_lookup
 chmod +x scripts/update-urls.sh
-./scripts/update-urls.sh TUO_USERNAME
+./scripts/update-urls.sh plcats
 ```
 
 ### 2️⃣ Inizializza Git (1 min)
@@ -24,13 +24,13 @@ chmod +x scripts/update-urls.sh
 ```bash
 git init
 git add .
-git commit -m "Initial commit - Mobile Lookup Module v1.0.0"
+git commit -m "Release v1.1.0 - Mobile Lookup Module"
 ```
 
 ### 3️⃣ Crea Repository su GitHub (2 min)
 
 1. Vai su https://github.com/new
-2. Nome: `xataface-mobile-lookup`
+2. Nome: `module-mobile_lookup`
 3. Descrizione: `Mobile-friendly lookup widget for Xataface with AJAX search`
 4. **Pubblico**
 5. **NON** aggiungere README/License/.gitignore
@@ -39,7 +39,7 @@ git commit -m "Initial commit - Mobile Lookup Module v1.0.0"
 ### 4️⃣ Push su GitHub (1 min)
 
 ```bash
-git remote add origin https://github.com/TUO_USERNAME/xataface-mobile-lookup.git
+git remote add origin https://github.com/plcats/module-mobile_lookup.git
 git branch -M main
 git push -u origin main
 ```
@@ -62,14 +62,14 @@ git push -u origin main
 ### 6️⃣ Crea Prima Release (2 min)
 
 ```bash
-git tag -a v1.0.0 -m "Initial release v1.0.0"
-git push origin v1.0.0
+git tag -a v1.1.0 -m "Release v1.1.0 - multi-word search, auto-focus"
+git push origin v1.1.0
 ```
 
 Su GitHub:
 1. Releases → Create a new release
-2. Tag: `v1.0.0`
-3. Title: `Version 1.0.0 - Initial Release`
+2. Tag: `v1.1.0`
+3. Title: `Version 1.1.0`
 4. Description: copia da CHANGELOG.md
 5. Publish release
 
@@ -135,10 +135,10 @@ con:
 
 ```bash
 # Usa HTTPS con token
-git remote set-url origin https://TUO_TOKEN@github.com/TUO_USERNAME/xataface-mobile-lookup.git
+git remote set-url origin https://TUO_TOKEN@github.com/plcats/module-mobile_lookup.git
 
 # O configura SSH
-git remote set-url origin git@github.com:TUO_USERNAME/xataface-mobile-lookup.git
+git remote set-url origin git@github.com:plcats/module-mobile_lookup.git
 ```
 
 ### File troppo grandi
@@ -153,7 +153,7 @@ git commit --amend
 
 ```bash
 # Riavvia lo script update-urls
-./scripts/update-urls.sh TUO_USERNAME
+./scripts/update-urls.sh plcats
 git add .
 git commit -m "Fix: Update GitHub URLs"
 git push
@@ -163,6 +163,7 @@ git push
 
 ## 📚 Link Utili
 
+- 📖 [Aggiornamento GitHub v1.1.0](GITHUB_UPDATE.md)
 - 📖 [Guida Completa](GITHUB_PREPARATION_SUMMARY.md)
 - 🔧 [Installazione](INSTALL.md)
 - 💡 [Esempi](docs/EXAMPLES.md)
